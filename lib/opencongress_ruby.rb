@@ -4,14 +4,14 @@ require 'open-uri'
 require 'json'
 
 module OpenCongress
-  API_URL = "http://www.opencongress.org/api"
+  API_URL = "http://192.168.1.7/api"
   
-  attr_accessor = :api_key
+  attr_accessor :api_key
   
   class OpenCongressObject
     
     def self.construct_url(api_method, params)
-      if OpenCongress.api_key.blank?
+      if OpenCongress.api_key == nil || OpenCongress.api_key == ''
         raise "Failed to provide OpenCongress API Key"
       else
         "#{API_URL}#{api_method}?key=#{OpenCongress.api_key}#{hash2get(params)}&format=json"
@@ -28,7 +28,7 @@ module OpenCongress
       get_string
     end
     
-    def make_call(url)
+    def self.make_call(url)
       result = nil
       begin
         result = JSON.parse(open(url).read)

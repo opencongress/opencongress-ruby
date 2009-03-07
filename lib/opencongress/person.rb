@@ -15,7 +15,7 @@ module OpenCongress
       end      
     end
     
-    def all_where(params)
+    def self.all_where(params)
       
       url = construct_url("people", params)
 
