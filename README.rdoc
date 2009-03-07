@@ -1,0 +1,7 @@
+= opencongress-ruby
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 David Shettler. See LICENSE for details.
