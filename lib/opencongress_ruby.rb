@@ -4,7 +4,7 @@ require 'open-uri'
 require 'json'
 
 module OpenCongress
-  API_URL = "http://192.168.1.7/api"
+  API_URL = "http://192.168.1.7:3000/api/"
   
   attr_accessor :api_key
   
@@ -27,15 +27,59 @@ module OpenCongress
       
       get_string
     end
+
+    def self.parse_supporting_results(result)
+      
+      working = result["opencongress_users_tracking"]
+      
+      also_supporting_bills = []
+      working["also_supporting_bills"]["bill"].each do |bill|
+        also_supporting_bills << Bill.new(bill)
+      end
+      
+      also_opposing_bills = []
+      working["also_opposing_bills"]["bill"].each do |bill|
+        also_opposing_bills << Bill.new(bill)
+      end
+      
+      also_disapproved_senators = []
+      working["also_disapproved_senators"]["person"].each do |person|
+        also_disapproved_senators << Person.new(person)
+      end
+      
+      also_disapproved_representatives = []
+      working["also_disapproved_representatives"]["person"].each do |person|
+        also_disapproved_representatives << Person.new(person)
+      end
+
+      also_approved_senators = []
+      working["also_approved_senators"]["person"].each do |person|
+        also_approved_senators << Person.new(person)
+      end
+      
+      also_approved_representatives = []
+      working["also_approved_representatives"]["person"].each do |person|
+        also_approved_representatives << Person.new(person)
+      end
+      
+      return {:also_supporting_bills => also_supporting_bills,
+              :also_opposing_bills => also_opposing_bills,
+              :also_disapproved_senators => also_disapproved_senators,
+              :also_disapproved_representatives => also_disapproved_representatives,
+              :also_approved_senators => also_approved_senators,
+              :also_approved_representatives => also_approved_representatives}
+      
+    end
     
     def self.make_call(url)
       result = nil
       begin
         result = JSON.parse(open(url).read)
-      rescue
+      rescue => e
+        puts e
       end
       
-      return doc
+      return result
       
     end
   end
