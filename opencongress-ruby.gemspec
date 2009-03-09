@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.date = %q{2009-03-07}
   s.email = %q{dave@opencongress.org}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE"]
-  s.files = ["README.rdoc", "VERSION.yml", "lib/opencongress", "lib/opencongress/person.rb", "lib/opencongress_ruby.rb", "test/opencongress_ruby_test.rb", "test/test_helper.rb", "LICENSE"]
+  s.files = ["README.rdoc", "VERSION.yml", "lib/opencongress", "lib/opencongress/bill.rb", "lib/opencongress/blog_post.rb", "lib/opencongress/news_post.rb", "lib/opencongress/person.rb", "lib/opencongress/person_stat.rb", "lib/opencongress/roll_call.rb", "lib/opencongress/roll_call_comparison.rb", "lib/opencongress/voting_comparison.rb", "lib/opencongress_ruby.rb", "test/opencongress_ruby_test.rb", "test/test_helper.rb", "LICENSE"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/opencongress/opencongress-ruby}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
