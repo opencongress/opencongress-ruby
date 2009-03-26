@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{opencongress-ruby}
-  s.version = "0.0.4"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Shettler"]
-  s.date = %q{2009-03-07}
+  s.date = %q{2009-03-25}
   s.email = %q{dave@opencongress.org}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE"]
   s.files = ["README.rdoc", "VERSION.yml", "lib/opencongress", "lib/opencongress/bill.rb", "lib/opencongress/blog_post.rb", "lib/opencongress/news_post.rb", "lib/opencongress/person.rb", "lib/opencongress/person_stat.rb", "lib/opencongress/roll_call.rb", "lib/opencongress/roll_call_comparison.rb", "lib/opencongress/voting_comparison.rb", "lib/opencongress_ruby.rb", "test/opencongress_ruby_test.rb", "test/test_helper.rb", "LICENSE"]
