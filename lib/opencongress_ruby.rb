@@ -4,7 +4,7 @@ require 'open-uri'
 require 'json'
 
 module OpenCongress
-  OC_BASE = "http://localhost:3000/"#www.opencongress.org/"
+  OC_BASE = "http://www.opencongress.org/"
   API_URL = "#{OC_BASE}api/"
   
   attr_accessor :api_key
