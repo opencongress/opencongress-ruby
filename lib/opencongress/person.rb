@@ -1,7 +1,7 @@
 
 module OpenCongress
   
-  class Person < OpenCongressObject
+  class OCPerson < OpenCongressObject
     
     attr_accessor :firstname, :lastname, :bioguideid, :birthday, :district, :email, :gender, :id, :metavid_id, :middlename,
                   :name, :nickname, :osid, :party, :religion, :state, :title, :unaccented_name, :url, :user_approval,
@@ -11,7 +11,7 @@ module OpenCongress
     
     def initialize(params)
       params.each do |key, value|
-        instance_variable_set("@#{key}", value) if Person.instance_methods.include? key
+        instance_variable_set("@#{key}", value) if OCPerson.instance_methods.include? key
       end      
     end
     
@@ -28,9 +28,9 @@ module OpenCongress
     end
 
     def self.compare(person1, person2)
-      url = "http://192.168.1.7:3000/person/compare.json?person1=#{person1.id}&person2=#{person2.id}"
+      url = "#{OC_BASE}person/compare.json?person1=#{person1.id}&person2=#{person2.id}"
       if (result = make_call(url))
-        comparison = VotingComparison.new(result["comparison"])
+        comparison = OCVotingComparison.new(result["comparison"])
       else
         nil
       end
@@ -86,10 +86,10 @@ module OpenCongress
     end
     
     def opencongress_users_supporting_person_are_also
-      url = Person.construct_url("opencongress_users_supporting_person_are_also/#{id}", {})
-      if (result = Person.make_call(url))
+      url = OCPerson.construct_url("opencongress_users_supporting_person_are_also/#{id}", {})
+      if (result = OCPerson.make_call(url))
         puts result.to_yaml
-        people = Person.parse_supporting_results(result)
+        people = OCPerson.parse_supporting_results(result)
         return people
       else
         nil
@@ -97,10 +97,10 @@ module OpenCongress
     end
 
     def opencongress_users_opposing_person_are_also
-      url = Person.construct_url("opencongress_users_opposing_person_are_also/#{id}", {})
-      if (result = Person.make_call(url))
+      url = OCPerson.construct_url("opencongress_users_opposing_person_are_also/#{id}", {})
+      if (result = OCPerson.make_call(url))
         puts result.to_yaml
-        people = Person.parse_supporting_results(result)
+        people = OCPerson.parse_supporting_results(result)
         return people
       else
         nil
@@ -131,11 +131,11 @@ module OpenCongress
             news << NewsPost.new(trb)
           end
           
-          person["person_stats"] = PersonStat.new(person["person_stats"]) if person["person_stats"]
+          person["person_stats"] = OCPersonStat.new(person["person_stats"]) if person["person_stats"]
           
           person["recent_news"] = news
           
-          people << Person.new(person)
+          people << OCPerson.new(person)
         end      
         
         people

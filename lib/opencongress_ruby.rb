@@ -4,7 +4,8 @@ require 'open-uri'
 require 'json'
 
 module OpenCongress
-  API_URL = "http://192.168.1.7:3000/api/"
+  OC_BASE = "http://www.opencongress.org/"
+  API_URL = "#{OC_BASE}api/"
   
   attr_accessor :api_key
   
@@ -34,32 +35,32 @@ module OpenCongress
       
       also_supporting_bills = []
       working["also_supporting_bills"]["bill"].each do |bill|
-        also_supporting_bills << Bill.new(bill)
+        also_supporting_bills << OCBill.new(bill)
       end
       
       also_opposing_bills = []
       working["also_opposing_bills"]["bill"].each do |bill|
-        also_opposing_bills << Bill.new(bill)
+        also_opposing_bills << OCBill.new(bill)
       end
       
       also_disapproved_senators = []
       working["also_disapproved_senators"]["person"].each do |person|
-        also_disapproved_senators << Person.new(person)
+        also_disapproved_senators << OCPerson.new(person)
       end
       
       also_disapproved_representatives = []
       working["also_disapproved_representatives"]["person"].each do |person|
-        also_disapproved_representatives << Person.new(person)
+        also_disapproved_representatives << OCPerson.new(person)
       end
 
       also_approved_senators = []
       working["also_approved_senators"]["person"].each do |person|
-        also_approved_senators << Person.new(person)
+        also_approved_senators << OCPerson.new(person)
       end
       
       also_approved_representatives = []
       working["also_approved_representatives"]["person"].each do |person|
-        also_approved_representatives << Person.new(person)
+        also_approved_representatives << OCPerson.new(person)
       end
       
       return {:also_supporting_bills => also_supporting_bills,

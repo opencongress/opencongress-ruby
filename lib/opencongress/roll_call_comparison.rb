@@ -1,12 +1,12 @@
 module OpenCongress
   
-  class RollCallComparison < OpenCongressObject
+  class OCRollCallComparison < OpenCongressObject
     
     attr_accessor :roll_call, :person1, :person2
     
     def initialize(params)
       params.each do |key, value|
-        instance_variable_set("@#{key}", value) if RollCallComparison.instance_methods.include? key
+        instance_variable_set("@#{key}", value) if OCRollCallComparison.instance_methods.include? key
       end
       
       puts self.to_yaml
@@ -23,7 +23,7 @@ module OpenCongress
     
     def set_roll_call
       
-      self.roll_call = RollCall.new(self.roll_call)
+      self.roll_call = OCRollCall.new(self.roll_call)
 
     end
 

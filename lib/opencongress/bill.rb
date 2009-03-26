@@ -1,7 +1,7 @@
 
 module OpenCongress
   
-  class Bill < OpenCongressObject
+  class OCBill < OpenCongressObject
     
     attr_accessor :bill_type, :id, :introduced, :last_speech, :last_vote_date, :last_vote_roll, :last_vote_where, :last_action, :number, :plain_language_summary,
                   :session, :sponsor, :co_sponsors, :title_full_common, :status, :most_recent_actions, :bill_titles, :recent_blogs, :recent_news, :ident
@@ -9,7 +9,7 @@ module OpenCongress
     
     def initialize(params)
       params.each do |key, value|
-        instance_variable_set("@#{key}", value) if Bill.instance_methods.include? key
+        instance_variable_set("@#{key}", value) if OCBill.instance_methods.include? key
       end      
     end
     
@@ -81,7 +81,7 @@ module OpenCongress
     end
     
     def self.by_query(q)
-      url = Bill.construct_url("bills_by_query", {:q => q})
+      url = OCBill.construct_url("bills_by_query", {:q => q})
       puts url
       
       if (result = make_call(url))
@@ -99,7 +99,7 @@ module OpenCongress
         q = idents.split(',')
       end
       
-      url = Bill.construct_url("bills_by_ident", {:ident => q.join(',')})
+      url = OCBill.construct_url("bills_by_ident", {:ident => q.join(',')})
       puts url
       
       if (result = make_call(url))
@@ -110,11 +110,11 @@ module OpenCongress
     end   
 
     def opencongress_users_supporting_bill_are_also
-      url = Bill.construct_url("opencongress_users_supporting_bill_are_also/#{ident}", {})
+      url = OCBill.construct_url("opencongress_users_supporting_bill_are_also/#{ident}", {})
       puts url
-      if (result = Bill.make_call(url))
+      if (result = OCBill.make_call(url))
         puts result.to_yaml
-        bills = Bill.parse_supporting_results(result)
+        bills = OCBill.parse_supporting_results(result)
         return bills
       else
         nil
@@ -122,11 +122,11 @@ module OpenCongress
     end
 
     def opencongress_users_opposing_bill_are_also
-      url = Bill.construct_url("opencongress_users_opposing_bill_are_also/#{ident}", {})
+      url = OCBill.construct_url("opencongress_users_opposing_bill_are_also/#{ident}", {})
       puts url
-      if (result = Bill.make_call(url))
+      if (result = OCBill.make_call(url))
         puts result.to_yaml
-        bills = Bill.parse_supporting_results(result)
+        bills = OCBill.parse_supporting_results(result)
         return bills
       else
         nil
@@ -143,7 +143,7 @@ module OpenCongress
 
         if these_recent_blogs
           these_recent_blogs.each do |trb|
-            blogs << BlogPost.new(trb)
+            blogs << OCBlogPost.new(trb)
           end
         end
 
@@ -154,7 +154,7 @@ module OpenCongress
         news = []
         if these_recent_news
           these_recent_news.each do |trb|
-            news << NewsPost.new(trb)
+            news << OCNewsPost.new(trb)
           end
         end
 
@@ -164,17 +164,17 @@ module OpenCongress
         co_sponsors = []
         if these_co_sponsors
           these_co_sponsors.each do |tcs|
-            co_sponsors << Person.new(tcs)
+            co_sponsors << OCPerson.new(tcs)
           end
         end
 
         bill["co_sponsors"] = co_sponsors
 
         
-        bill["sponsor"] = Person.new(bill["sponsor"]) if bill["sponsor"]
+        bill["sponsor"] = OCPerson.new(bill["sponsor"]) if bill["sponsor"]
         
         
-        bills << Bill.new(bill)
+        bills << OCBill.new(bill)
       end
       bills
     end
