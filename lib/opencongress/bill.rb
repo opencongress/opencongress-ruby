@@ -20,7 +20,6 @@ module OpenCongress
     def self.all_where(params)
 
       url = construct_url("bills", params)
-      puts url
       
       if (result = make_call(url))
         bills = parse_results(result)
@@ -82,7 +81,6 @@ module OpenCongress
     
     def self.by_query(q)
       url = OCBill.construct_url("bills_by_query", {:q => q})
-      puts url
       
       if (result = make_call(url))
         bills = parse_results(result)
@@ -100,7 +98,6 @@ module OpenCongress
       end
       
       url = OCBill.construct_url("bills_by_ident", {:ident => q.join(',')})
-      puts url
       
       if (result = make_call(url))
         bills = parse_results(result)
@@ -111,9 +108,7 @@ module OpenCongress
 
     def opencongress_users_supporting_bill_are_also
       url = OCBill.construct_url("opencongress_users_supporting_bill_are_also/#{ident}", {})
-      puts url
       if (result = OCBill.make_call(url))
-        puts result.to_yaml
         bills = OCBill.parse_supporting_results(result)
         return bills
       else
@@ -123,9 +118,7 @@ module OpenCongress
 
     def opencongress_users_opposing_bill_are_also
       url = OCBill.construct_url("opencongress_users_opposing_bill_are_also/#{ident}", {})
-      puts url
       if (result = OCBill.make_call(url))
-        puts result.to_yaml
         bills = OCBill.parse_supporting_results(result)
         return bills
       else

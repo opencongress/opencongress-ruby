@@ -4,7 +4,7 @@ require 'open-uri'
 require 'json'
 
 module OpenCongress
-  OC_BASE = "http://www.opencongress.org/"
+  OC_BASE = "http://localhost:3000/"#www.opencongress.org/"
   API_URL = "#{OC_BASE}api/"
   
   attr_accessor :api_key
@@ -12,11 +12,13 @@ module OpenCongress
   class OpenCongressObject
     
     def self.construct_url(api_method, params)
+      url = nil
       if OpenCongress.api_key == nil || OpenCongress.api_key == ''
         raise "Failed to provide OpenCongress API Key"
       else
-        "#{API_URL}#{api_method}?key=#{OpenCongress.api_key}#{hash2get(params)}&format=json"
+        url = "#{API_URL}#{api_method}?key=#{OpenCongress.api_key}#{hash2get(params)}&format=json"
       end
+      return url
     end
     
     def self.hash2get(h)
@@ -72,10 +74,10 @@ module OpenCongress
       
     end
     
-    def self.make_call(url)
+    def self.make_call(this_url)
       result = nil
       begin
-        result = JSON.parse(open(url).read)
+        result = JSON.parse(open(this_url).read)
       rescue => e
         puts e
       end

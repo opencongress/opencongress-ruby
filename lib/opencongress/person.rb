@@ -88,7 +88,6 @@ module OpenCongress
     def opencongress_users_supporting_person_are_also
       url = OCPerson.construct_url("opencongress_users_supporting_person_are_also/#{id}", {})
       if (result = OCPerson.make_call(url))
-        puts result.to_yaml
         people = OCPerson.parse_supporting_results(result)
         return people
       else
@@ -99,7 +98,6 @@ module OpenCongress
     def opencongress_users_opposing_person_are_also
       url = OCPerson.construct_url("opencongress_users_opposing_person_are_also/#{id}", {})
       if (result = OCPerson.make_call(url))
-        puts result.to_yaml
         people = OCPerson.parse_supporting_results(result)
         return people
       else
@@ -119,7 +117,7 @@ module OpenCongress
           these_recent_blogs = person["recent_blogs"]
           blogs = []
           these_recent_blogs.each do |trb|
-            blogs << BlogPost.new(trb)
+            blogs << OCBlogPost.new(trb)
           end
 
           person["recent_blogs"] = blogs
@@ -128,7 +126,7 @@ module OpenCongress
           these_recent_news = person["recent_news"]
           news = []
           these_recent_news.each do |trb|
-            news << NewsPost.new(trb)
+            news << OCNewsPost.new(trb)
           end
           
           person["person_stats"] = OCPersonStat.new(person["person_stats"]) if person["person_stats"]

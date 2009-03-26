@@ -9,7 +9,6 @@ module OpenCongress
         instance_variable_set("@#{key}", value) if OCRollCallComparison.instance_methods.include? key
       end
       
-      puts self.to_yaml
       
       set_people
       set_roll_call
