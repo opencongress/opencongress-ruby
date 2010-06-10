@@ -1,4 +1,5 @@
 = opencongress-ruby
 
-This repo is here for posterity, but opencongress-ruby has been folded into [GovKit](http://github.com/opengovernment/govkit).
+This repo is here for posterity, but opencongress-ruby has been folded into GovKit.
+Please go to http://github.com/opengovernment/govkit and use that gem instead.
 See the GovKit documentation for more info.
