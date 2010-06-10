@@ -1,7 +1,4 @@
 = opencongress-ruby
 
-Description goes here.
-
-== Copyright
-
-Copyright (c) 2009 David Shettler. See LICENSE for details.
+This repo is here for posterity, but opencongress-ruby has been folded into [http://github.com/opengovernment/govkit](GovKit).
+See the GovKit documentation for more info.
